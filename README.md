@@ -95,10 +95,13 @@ and if you have any further questions, please feel free to email me at maxxu@gat
 -
 Addendum by RG
 
-To run pulseimpute-reproducible, you first need to run the following lines of code on accre:
+The version on github has no data pre-loaded, so you will have to run different scripts to download the code. To get the MIMIC data provided by the pulseimpute authors, you can run "bash get_data.sh". In each folder in "data/neurdy_waveforms" there is a py file labeled as "X_npy_file_generator". You can run this file for each dataset you wish to use, on ACCRE, to generate the npy files for the corresponding dataset.
+
+
+Once the necessary data has been loaded, to run pulseimpute-reproducible, you first need to run the following lines of code on accre:
 
 salloc --partition=pascal --account=neurogroup_acc --gres=gpu:2 --time=12:00:00 --mem=50G
 conda activate pulseimpute
 module load GCC/11.3.0
 
-Then you can run "python test_impmodel.py" or "python train_impmodel.py". Currently, both files reference the config in "test_neurdy_configs.py" which you can change as you see fit. This version of pulseimpute does not have the MIMIC data because that data is 66G, if you wish to download it I would recommend making a copy in your home repository and running "bash get_data.sh".
+Then you can run "python test_impmodel.py" or "python train_impmodel.py". Currently, both files reference the config in "test_neurdy_configs.py" which you can change as you see fit. 
