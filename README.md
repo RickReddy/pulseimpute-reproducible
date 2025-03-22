@@ -1,22 +1,20 @@
 Addendum by RG
 
-1. Download data if needed:
-The version on github has no data pre-loaded, so you will have to run different scripts to download the code. To get the MIMIC data provided by the pulseimpute authors, you can run "bash get_data.sh". In each folder in "data/neurdy_waveforms" there is a py file labeled as "X_npy_file_generator". You can run this file for each dataset you wish to use, on ACCRE, to generate the npy files for the corresponding dataset.
+<p>1. Download data if needed:
+The version on github has no data pre-loaded, so you will have to run different scripts to download the code. To get the MIMIC data provided by the pulseimpute authors, you can run "bash get_data.sh". In each folder in "data/neurdy_waveforms" there is a py file labeled as "X_npy_file_generator". You can run this file for each dataset you wish to use, on ACCRE, to generate the npy files for the corresponding dataset.</p>
 
-3. Set up environment on ACCRE:
-To run pulseimpute-reproducible, you first need to run the following lines of code on accre:
-
-salloc --partition=pascal --account=neurogroup_acc --gres=gpu:2 --time=12:00:00 --mem=50G
-
+<p>2. Set up environment on ACCRE:
+To run pulseimpute-reproducible, you first need to run the following lines of code on accre:</p>
+<code>salloc --partition=pascal --account=neurogroup_acc --gres=gpu:2 --time=12:00:00 --mem=50G
 conda activate pulseimpute
-
 module load GCC/11.3.0
-
+</code><br>
+<p>
 3. Adjust config files as necessary:
-The config currently being used in this folder is the only config in "configs/test_neurdy_configs.py". You can adjust this config, or copy it and make a config with a different name to use. If you have changed the name you also will have to change the reference at the start of test_impmodel.py or train_impmodel.py.
+The config currently being used in this folder is the only config in "configs/test_neurdy_configs.py". You can adjust this config, or copy it and make a config with a different name to use. If you have changed the name you also will have to change the reference at the start of test_impmodel.py or train_impmodel.py.</p>
 
-4. Run script:
-Then you can run "python test_impmodel.py" or "python train_impmodel.py".
+<p>4. Run script:
+Then you can run "python test_impmodel.py" or "python train_impmodel.py".</p>
 
 ----
 
