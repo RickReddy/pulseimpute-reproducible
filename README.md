@@ -7,7 +7,9 @@ The version on github has no data pre-loaded, so you will have to run different 
 To run pulseimpute-reproducible, you first need to run the following lines of code on accre:
 
 salloc --partition=pascal --account=neurogroup_acc --gres=gpu:2 --time=12:00:00 --mem=50G
+
 conda activate pulseimpute
+
 module load GCC/11.3.0
 
 3. Adjust config files as necessary:
