@@ -16,6 +16,9 @@ The config currently being used in this folder is the only config in "configs/te
 <p>4. Run script:
 Then you can run "python test_impmodel.py" or "python train_impmodel.py".</p>
 
+<p>5. Visualize data:
+If you want to visualize any data, you can use the scripts in the "vis_output" folder. "boxplot_visualization.py" can be used to compare MSEs across different datasets, while "individual_dataset_visualization.py" can be used to display the MSEs of one dataset.
+
 ----
 
 # PulseImpute Challenge
