@@ -11,6 +11,7 @@ import random
 from tqdm import tqdm
 
 from ast import literal_eval # added by RG
+from csv import reader, writer # added by RG
 from utils.loss_mask import mse_mask_loss # added by RG
 import pandas as pd # added by RG
 
@@ -32,9 +33,8 @@ if __name__=='__main__':
 
     for config in configs:
         print(config["modelname"]+config["annotate"]+config["annotate_test"])
-
         random_seed(10, True)
-        
+
         # added by RG
         try:
             load = getattr(__import__(f'utils.universal_loader', fromlist=['']), "load")
@@ -58,8 +58,32 @@ if __name__=='__main__':
         imputation = model.testimp()
 
         # added by RG
+        if config["save_timestamps"]:
+            with open(config["missingness_path"], 'r') as read_obj:
+                csv_reader = reader(read_obj)
+                list_of_miss = list(csv_reader)
+                timestamps_list=[]
+                for row in list_of_miss:
+                    time_tracker = 0
+                    timestamps = []
+                    for value in row:
+                        value = literal_eval(value)
+                        if value[0] == 0:
+                            timestamp_start = time_tracker/100
+                            time_tracker += value[1]
+                            timestamp_end = time_tracker/100
+                            timestamps.append([timestamp_start, timestamp_end])
+                        else:
+                            time_tracker += value[1]
+                    timestamps_list.append(timestamps)
+                print(timestamps_list)
+            with open(os.path.join("vis_output", config["data_name"]+config["annotate_test"]+'_timestamps.csv'), 'w', newline='') as f:
+                csv_writer = writer(f)
+                csv_writer.writerows(timestamps_list)
+
+        # added by RG
         if config["save_imputation_file"]:
-            np.save(os.path.join("vis_output", config["data_name"]+config["annotate_test"]+'_imputation'), imputation)
+            np.save(os.path.join("vis_output", config["data_name"]+'_imputation'), imputation)
         
         # added by RG
         if config["save_mse"]:
@@ -82,7 +106,7 @@ if __name__=='__main__':
                 mse_all_data.append(mse_scan_specific)
             df = pd.DataFrame(mse_all_data)
             df.to_csv(os.path.join("vis_output", config["data_name"] + "_MSE.csv"), index=False, header=False)
-   
+
         # block of code commented out by RG
         # if bootstrap is not None: # only support for mimic right now
         #     mse_losses, missing_totals = eval_mse(imputation, Y_dict_test["target_seq"], path, return_stats=True)
