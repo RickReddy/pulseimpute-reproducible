@@ -23,15 +23,17 @@ if __name__=='__main__':
 
     print(config["modelname"]+config["annotate"])
     random_seed(10, True)
-    #try:
-    load = getattr(__import__(f'utils.universal_loader', fromlist=['']), "load")
-    X_train, Y_dict_train, X_val, Y_dict_val, X_test, Y_dict_test = load(**config["data_load"],
-        **config["file_paths"], train=True, val=True, test=False)
+    # added by RG
+    try:
+        load = getattr(__import__(f'utils.universal_loader', fromlist=['']), "load")
+        X_train, Y_dict_train, X_val, Y_dict_val, X_test, Y_dict_test = load(**config["data_load"],
+            **config["file_paths"], train=True, val=True, test=False)
     
-    # except:
-    #     load = getattr(__import__(f'utils.{config["data_name"]}', fromlist=['']), "load")
-    #     X_train, Y_dict_train, X_val, Y_dict_val, X_test, Y_dict_test = load(**config["data_load"], 
-    #                                                                         train=True, val=True, test=False)
+    except:
+        # original pulseimpute code
+         load = getattr(__import__(f'utils.{config["data_name"]}', fromlist=['']), "load")
+         X_train, Y_dict_train, X_val, Y_dict_val, X_test, Y_dict_test = load(**config["data_load"], 
+                                                                             train=True, val=True, test=False)
     model_type = config["modeltype"]
     model_module = __import__(f'models.{model_type}_model', fromlist=[''])
     model_module_class = getattr(model_module, model_type)
