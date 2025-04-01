@@ -15,6 +15,7 @@ bdc883_emb256_layer2_mimic_ppg_test2 = {'modelname':'bdc883_emb256_layer2', "ann
                 "freeze_layer_4": False},
             "save_imputation_file": True,
             "save_mse": True,
+            "save_timestamps": True,
             
             "missingness_path": os.path.join("data", "neurdy_missingness_patterns", "missing_ppg_test_10sec.csv"),
             
