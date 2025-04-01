@@ -7,10 +7,12 @@ import scipy.stats as stats
 
 
 fig, ax = plt.subplots()
-file = "eegfmri_nih_ppg_MSE.csv"
+MSE_file = "eegfmri_nih_ppg_MSE.csv"
+timestamps_file = "eegfmri_nih_ppg_timestamps.csv"
 
-df = pd.read_csv("eegfmri_nih_ppg_MSE.csv", header=None, index_col=False)
-for index, row in df.iterrows():
-    plt.plot(row, linestyle='-', marker='o', alpha=0.5)
+MSE_df = pd.read_csv(MSE_file, header=None, index_col=False)
+timestamps_df = pd.read_csv(timestamps_file, header=None, index_col=False)
+for index, row in MSE_df.iterrows():
+    plt.plot(timestamps_df.iloc[0], row, linestyle='-', marker='o', alpha=0.5)
 
 plt.show()
